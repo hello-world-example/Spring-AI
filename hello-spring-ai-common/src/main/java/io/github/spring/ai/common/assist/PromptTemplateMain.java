@@ -1,4 +1,4 @@
-package io.github.spring.ai.common;
+package io.github.spring.ai.common.assist;
 
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -6,6 +6,11 @@ import org.springframework.ai.chat.prompt.PromptTemplate;
 
 import java.util.Map;
 
+/**
+ * <image src="https://docs.spring.io/spring-ai/reference/_images/spring-ai-message-api.jpg"/>
+ *
+ * @see org.springframework.ai.chat.messages.MessageType
+ */
 public class PromptTemplateMain {
 
     static void main() {

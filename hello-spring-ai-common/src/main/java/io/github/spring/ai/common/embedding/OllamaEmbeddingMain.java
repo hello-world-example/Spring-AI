@@ -1,4 +1,4 @@
-package io.github.demo.ai.agents.embedding.ollam;
+package io.github.spring.ai.common.embedding;
 
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;

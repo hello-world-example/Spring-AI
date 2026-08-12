@@ -11,11 +11,27 @@
 
     <artifactId>hello-spring-ai-common</artifactId>
 
-   <dependencies>
-       <dependency>
-           <groupId>org.springframework.ai</groupId>
-           <artifactId>spring-ai-starter-model-openai</artifactId>
-       </dependency>
-   </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-ollama</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <!--允许开发者在 Java/Spring Boot 应用中直接在本地运行 Transformer 文本向量（Embedding）模型-->
+            <!--基于 ONNX（Open Neural Network Exchange）格式 和 ONNX Runtime，实现了在 JVM 内部独立进行文本向量化计算，无需依赖 Python 环境，也不需要调用外部云端 API-->
+            <artifactId>spring-ai-starter-model-transformers</artifactId>
+        </dependency>
+
+        <!--
+         <dependency>
+             <groupId>com.microsoft.onnxruntime</groupId>
+             <artifactId>onnxruntime_gpu</artifactId>
+             <version>${onnxruntime.version}</version>
+         </dependency>
+        -->
+
+    </dependencies>
 
 </project>

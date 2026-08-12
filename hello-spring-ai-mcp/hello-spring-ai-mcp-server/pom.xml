@@ -5,17 +5,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>xyz.kail.github</groupId>
-        <artifactId>Spring-AI</artifactId>
+        <artifactId>hello-spring-ai-mcp</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>hello-spring-ai-mcp-client</artifactId>
+    <artifactId>hello-spring-ai-mcp-server</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-client</artifactId>
+            <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
