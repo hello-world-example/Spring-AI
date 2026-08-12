@@ -1,0 +1,122 @@
+### 变量配置
+@host = http://localhost:8080
+@mcpPath = /mcp
+@messagePath = /mcp/message?sessionId=bafbf468-8c16-4726-9125-20e59c3921ed
+
+# ==========================================
+# 1. 建立 SSE 连接 (握手)
+# ==========================================
+# 这一步在 HTTP Client 中会一直挂起等待数据。
+# 响应中会包含 endpoint 信息，通常指向 /mcp/message?sessionId=xxxx
+GET {{host}}{{mcpPath}}
+Accept: text/event-stream
+
+###
+
+# ==========================================
+# 2. 初始化 (Initialize)
+# ==========================================
+# 这是客户端必须发送的第一个请求。
+# 只有初始化成功后，才能调用工具。
+POST {{host}}{{messagePath}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2024-11-05",
+    "capabilities": {
+      "roots": {
+        "listChanged": true
+      },
+      "sampling": {}
+    },
+    "clientInfo": {
+      "name": "MyHttpClient",
+      "version": "1.0.0"
+    }
+  }
+}
+
+###
+
+# ==========================================
+# 3. 确认初始化 (Notifications/Initialized)
+# ==========================================
+# 收到服务器的 initialize 响应后，客户端必须发送这个通知
+POST {{host}}{{messagePath}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+}
+
+###
+
+# ==========================================
+# 4. 列出可用工具 (Tools/List)
+# ==========================================
+# 查看服务器暴露了哪些 @Tool
+POST {{host}}{{messagePath}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list"
+}
+
+###
+
+# ==========================================
+# 5. 调用工具 (Tools/Call)
+# ==========================================
+# 假设你有一个工具叫 "calculator"，参数是 "a" 和 "b"
+# 请根据上一步 list 的结果修改 name 和 arguments
+POST {{host}}{{messagePath}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "tools/call",
+  "params": {
+    "name": "calculator",
+    "arguments": {
+      "operation": "add",
+      "a": 10,
+      "b": 20
+    }
+  }
+}
+
+###
+
+# ==========================================
+# 6. 列出资源 (Resources/List)
+# ==========================================
+POST {{host}}{{messagePath}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "resources/list"
+}
+
+###
+
+# ==========================================
+# 7. 列出提示词 (Prompts/List)
+# ==========================================
+POST {{host}}{{messagePath}}
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+  "id": 5,
+  "method": "prompts/list"
+}
