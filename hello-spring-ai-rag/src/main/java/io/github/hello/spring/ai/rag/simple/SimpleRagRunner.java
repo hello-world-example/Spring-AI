@@ -7,25 +7,21 @@ import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvi
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
+import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
-import org.springframework.ai.vectorstore.observation.DefaultVectorStoreObservationConvention;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Component
+// @Component
 public class SimpleRagRunner implements CommandLineRunner {
 
     private final EmbeddingModel embeddingModel;
@@ -44,8 +40,16 @@ public class SimpleRagRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // 创建，并初始化数据（加载数据到内存）
         SimpleVectorStore vectorStore = this.initSimpleVectorStore();
+        // optional 自定义查询
+        SearchRequest searchRequest = SearchRequest.builder()
+                .topK(10) // default 4
+                .similarityThreshold(0.8D) // default 0
+                // .filterExpression(...) // Metadata filter
+                .build();
         //
-        QuestionAnswerAdvisor questionAnswerAdvisor = QuestionAnswerAdvisor.builder(vectorStore).build();
+        QuestionAnswerAdvisor questionAnswerAdvisor = QuestionAnswerAdvisor.builder(vectorStore)
+                .searchRequest(searchRequest)
+                .build();
         //
         ChatResponse response = chatClient.prompt()
                 .advisors(
@@ -63,7 +67,7 @@ public class SimpleRagRunner implements CommandLineRunner {
      */
     private @NonNull SimpleVectorStore initSimpleVectorStore() throws IOException {
         SimpleVectorStore vectorStore = SimpleVectorStore.builder(embeddingModel)
-                .customObservationConvention(new DefaultVectorStoreObservationConvention())
+                //.observationRegistry(null)
                 .build();
 
         // SimpleVectorStore 处理后的数据文件，是个 json

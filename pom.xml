@@ -10,13 +10,13 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>hello-spring-ai-chat</module>
+        <module>hello-spring-ai-common</module>
+        <module>hello-spring-ai-rag</module>
+        <module>hello-spring-ai-mcp</module>
+        <module>hello-spring-ai-otel-langfuse</module>
+        <!---->
         <module>hello-spring-ai-voice</module>
         <module>hello-agentscope</module>
-        <module>hello-spring-ai-otel-langfuse</module>
-        <module>hello-spring-ai-common</module>
-        <module>hello-spring-ai-mcp</module>
-        <module>hello-spring-ai-rag</module>
     </modules>
 
     <properties>

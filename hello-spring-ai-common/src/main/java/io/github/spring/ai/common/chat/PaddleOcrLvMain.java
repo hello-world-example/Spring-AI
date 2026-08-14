@@ -1,9 +1,10 @@
-package xyz.kail.github;
+package io.github.spring.ai.common.chat;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
+import org.springframework.ai.ollama.OllamaChatModel;import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +19,15 @@ public class PaddleOcrLvMain implements ApplicationRunner {
     private final ChatClient chatClient;
 
     public PaddleOcrLvMain(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
+        OllamaChatOptions.Builder chatOptionBuilder = OllamaChatOptions.builder()
+                // .model("mlx-community/DeepSeek-OCR-2-bf16")
+                .model("mlx-community/PaddleOCR-VL-1.5-bf16")
+                .temperature(0.8D)
+                .disableThinking();
+
+        this.chatClient = builder
+                .defaultOptions(chatOptionBuilder)
+                .build();
     }
 
     @Override
@@ -29,7 +38,8 @@ public class PaddleOcrLvMain implements ApplicationRunner {
 
         // 2. 构建用户消息
         UserMessage userMessage = UserMessage.builder()
-                .text("").media(Media.builder()
+                .text("")
+                .media(Media.builder()
                         .data(imageResource)
                         .mimeType(MediaType.IMAGE_PNG)
                         .build()
