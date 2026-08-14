@@ -1,9 +1,6 @@
 package io.github.hello.spring.ai.agent;
 
-import io.github.hello.spring.ai.agent.chain_workflow.ChainWorkflowRunner;
-import io.github.hello.spring.ai.agent.orchestrator_workers.OrchestratorWorkersRunner;
-import io.github.hello.spring.ai.agent.parallelization_workflow.ParallelizationlWorkflowRunner;
-import io.github.hello.spring.ai.agent.routing_workflow.RoutingWorkflowRunner;
+import io.github.hello.spring.ai.agent.evaluator_optimizer.EvaluatorOptimizerRunner;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -46,9 +43,20 @@ public class App {
      * 1/ 先由 LLM 对任务进行拆分
      * 2/ 再让 LLM 处理拆分后的任务
      */
+//    @Bean
+//    public CommandLineRunner orchestratorWorkersRunner(ChatClient.Builder builder) {
+//        return new OrchestratorWorkersRunner(builder.clone());
+//    }
+
+    /**
+     * 循环评估
+     * 1/ 先 LLM 生成
+     * 2/ 再 LLM 评估
+     * 3/ 评估通过结束，评估不通过 loop 到 第一步继续
+     */
     @Bean
-    public CommandLineRunner orchestratorWorkersRunner(ChatClient.Builder builder) {
-        return new OrchestratorWorkersRunner(builder.clone());
+    public CommandLineRunner evaluatorOptimizerRunner(ChatClient.Builder builder) {
+        return new EvaluatorOptimizerRunner(builder.clone());
     }
 
 }
