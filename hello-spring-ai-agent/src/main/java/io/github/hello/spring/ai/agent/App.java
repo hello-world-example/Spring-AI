@@ -1,6 +1,7 @@
 package io.github.hello.spring.ai.agent;
 
 import io.github.hello.spring.ai.agent.chain_workflow.ChainWorkflowRunner;
+import io.github.hello.spring.ai.agent.parallelization_workflow.ParallelizationlWorkflowRunner;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,9 +15,20 @@ public class App {
         SpringApplication.run(App.class, args);
     }
 
+    /**
+     * 串行
+     */
+//    @Bean
+//    public CommandLineRunner chainWorkflowRunner(ChatClient.Builder builder) {
+//        return new ChainWorkflowRunner(builder.clone());
+//    }
+
+    /**
+     * 并行
+     */
     @Bean
-    public CommandLineRunner chainWorkflowRunner(ChatClient.Builder builder) {
-        return new ChainWorkflowRunner(builder.clone());
+    public CommandLineRunner parallelizationlWorkflowRunner(ChatClient.Builder builder) {
+        return new ParallelizationlWorkflowRunner(builder.clone());
     }
 
 }
