@@ -12,7 +12,6 @@ import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
