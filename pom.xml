@@ -10,12 +10,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!-- chat / embedding /  -->
+        <!-- chat / embedding / store -->
         <module>hello-spring-ai-common</module>
         <module>hello-spring-ai-rag</module>
-        <module>hello-spring-ai-mcp</module>
         <!-- chain_workflow -->
         <module>hello-spring-ai-agent</module>
+        <module>hello-spring-ai-mcp</module>
         <module>hello-spring-ai-otel-langfuse</module>
         <!---->
         <module>hello-spring-ai-voice</module>
