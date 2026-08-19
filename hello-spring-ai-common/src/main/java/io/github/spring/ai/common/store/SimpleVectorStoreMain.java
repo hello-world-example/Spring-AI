@@ -95,7 +95,7 @@ public class SimpleVectorStoreMain {
 
     static void main() throws Exception {
         //
-        EmbeddingModel embeddingModel = newEmbeddingModel();
+        EmbeddingModel embeddingModel = Util.newEmbeddingModel();
         //
         SimpleVectorStore vectorStore = SimpleVectorStore.builder(embeddingModel).build();
         //
@@ -108,11 +108,6 @@ public class SimpleVectorStoreMain {
 
     }
 
-    private static EmbeddingModel newEmbeddingModel() throws Exception {
-        TransformersEmbeddingModel embeddingModel = new TransformersEmbeddingModel();
-        embeddingModel.setResourceCacheDirectory(Util.srcMainResources() + "/spring-ai-onnx-model");
-        embeddingModel.afterPropertiesSet();
-        return embeddingModel;
-    }
+
 
 }
