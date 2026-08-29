@@ -8,6 +8,7 @@ import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
 import org.springframework.ai.rag.generation.augmentation.ContextualQueryAugmenter;
 import org.springframework.ai.rag.retrieval.search.VectorStoreDocumentRetriever;
+import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Component
 public class AdvanceRagRunner implements CommandLineRunner {
 
 
@@ -38,16 +38,17 @@ public class AdvanceRagRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /**
-         *
+        /*
+         * VectorStore 向量存储
          */
         VectorStore vectorStore = vectorStoreService.initVectorStore();
 
-        /**
+        /*
          *
          */
         VectorStoreDocumentRetriever documentRetriever = VectorStoreDocumentRetriever.builder()
-                .similarityThreshold(0.50)
+                .similarityThreshold(SearchRequest.SIMILARITY_THRESHOLD_ACCEPT_ALL)
+                .topK(SearchRequest.DEFAULT_TOP_K)
                 .vectorStore(vectorStore)
                 .build();
 
@@ -73,5 +74,8 @@ public class AdvanceRagRunner implements CommandLineRunner {
 
     }
 
+    public static void doPreRetrieval(RetrievalAugmentationAdvisor.Builder builder) {
+
+    }
 
 }

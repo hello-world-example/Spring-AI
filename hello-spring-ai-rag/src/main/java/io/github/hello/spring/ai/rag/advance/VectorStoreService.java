@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Service
+//@Service
 public class VectorStoreService {
 
     private final EmbeddingModel embeddingModel;
